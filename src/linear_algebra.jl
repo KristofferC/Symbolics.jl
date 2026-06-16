@@ -352,8 +352,8 @@ function (lex::LinearExpander)(t::SymbolicT)
                 for (k, v) in dict
                     a, b, islin = _linear_expansion_recurse(lex, k)
                     islin || return (COMMON_ZERO, COMMON_ZERO, false)
-                    push!(a_buffer, a * v)
-                    push!(b_buffer, b * v)
+                    push!(a_buffer, isone(v) ? a : a * v)
+                    push!(b_buffer, isone(v) ? b : b * v)
                 end
                 if !_iszero(coeff)
                     push!(b_buffer, cf)
